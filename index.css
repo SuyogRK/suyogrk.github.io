@@ -1,0 +1,29 @@
+.portfolio-container {
+
+    display: grid;
+    grid: 'header'max-content 'main-area'1fr 'footer'max-content /1fr;
+
+}
+
+.portfolio-header {
+    grid-area: header;
+    max-height: 30vh;
+    min-height: 350px;
+    width: 100vw;
+    margin: 15px;
+    background: rgb(88, 165, 250);
+    background: linear-gradient(180deg, rgba(88, 165, 250, 1) 0%, rgba(168, 207, 250, 1) 100%);
+    box-shadow:  rgba(61, 63, 65, 0.2) 0px 4px 4px 2px
+}
+
+
+.portfolio-main {
+    grid-area: main-area;
+    height: 100%;
+}
+
+.portfolio-footer {
+    grid-area: footer;
+    background: #55a3fa;
+    min-height: 90px;
+}
