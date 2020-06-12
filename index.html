@@ -51,6 +51,16 @@
                 </div>
             </div>
 
+            <div class="portfolio-projects-nav">
+                <div class="portfolio-projects-nav-item" id="previous">Back</div>
+                <div class="portfolio-project-nav-item portfolio-project-nav-links">
+
+                </div>
+                <div class="portfolio-projects-nav-item" id="next">Next</div>
+
+
+            </div>
+
            
         </section>
 
@@ -69,24 +79,24 @@
         let link = {};
         let myProjects = document.getElementById("portfolio-projects")
 
-        // fetch("https://api.github.com/users/suyogrk/repos?per_page=10",{
-        //     sort:'pushed'
-        // })
-        //         .then(response =>{
-        //          link = response.headers.get('link');
-        //          return response.json();
-        //         }
-        //         )            
-        //         .then(data => {
-        //             data.forEach(item=>{
-        //                 let mydiv = document.createElement('div');
-        //                 mydiv.classList.add('github-repo');
-        //                 mydiv.innerHTML=`<a href="${item.svn_url}">${item.name}</a>`;  
-        //                 myProjects.appendChild(mydiv);
-        //             }                      
-        //             )
-        //         })
-        //         .catch(error => console.error(error))
+        fetch("https://api.github.com/users/suyogrk/repos?per_page=10",{
+            sort:'pushed'
+        })
+                .then(response =>{
+                 link = response.headers.get('link');
+                 return response.json();
+                }
+                )            
+                .then(data => {
+                    data.forEach(item=>{
+                        let mydiv = document.createElement('div');
+                        mydiv.classList.add('github-repo');
+                        mydiv.innerHTML=`<a href="${item.svn_url}">${item.name}</a>`;  
+                        myProjects.appendChild(mydiv);
+                    }                      
+                    )
+                })
+                .catch(error => console.error(error))
 
 
 

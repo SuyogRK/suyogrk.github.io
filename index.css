@@ -1,15 +1,15 @@
-@font-face{
+@font-face {
     font-family: 'averta';
     src: url('assets/averta.woff');
 }
 
 .portfolio-container {
 
-    font-family:averta;
+    font-family: averta;
 
     display: grid;
     grid: 'header'max-content 'main-area'1fr 'footer'max-content /1fr;
-    width:100%;
+    width: 100%;
 
 }
 
@@ -21,37 +21,36 @@
     margin-right: 15px;
     background: rgb(88, 165, 250);
     background: linear-gradient(180deg, rgba(88, 165, 250, 1) 0%, rgba(168, 207, 250, 1) 100%);
-    box-shadow:  rgba(61, 63, 65, 0.2) 0px 4px 4px 2px;
-    display:grid;
-    grid: 'navbar' 90px
-            'header-text' 1fr / 1fr;
+    box-shadow: rgba(61, 63, 65, 0.2) 0px 4px 4px 2px;
+    display: grid;
+    grid: 'navbar'90px 'header-text'1fr / 1fr;
     place-items: center center;
-    color:white;
+    color: white;
 }
 
-.portfolio-nav{
+.portfolio-nav {
     display: flex;
     line-height: 50px;
     font-size: 20px;
 }
 
-.portfolio-nav a{
+.portfolio-nav a {
     text-decoration: none;
     color: white;
     padding: 10px;
-    
+
 }
 
-.portfolio-nav a:hover{
+.portfolio-nav a:hover {
     border-bottom: rosybrown 2px solid;
 }
 
-.portfolio-header-text-container{
-    grid-area:header-text;
+.portfolio-header-text-container {
+    grid-area: header-text;
     width: 100%;
     height: 100%;
     place-content: center center;
-    display:grid;
+    display: grid;
     font-size: 30px;
 }
 
@@ -62,28 +61,56 @@
     margin: 15px;
 }
 
-#portfolio-projects{
-    width:100%;
-    height:100%;
-    display:grid;
-    grid: 'projects-title' 50px
-            'projects-display' minmax(250px, 1fr) / 100%;
+#portfolio-projects {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid: 'projects-title'50px 'projects-display'minmax(250px, max-content) 'projects-nav'max-content / 100%;
 
     place-items: center center;
 }
 
-.portfolio-projects-title{
+.portfolio-projects-title {
     line-height: 40px;
-    color:black;
-    font-size:30px;
+    color: black;
+    font-size: 30px;
     font-weight: bold;
 }
 
-.portfolio-projects-container{
-    width:100%;
-    height:100%;
-    display:grid;
-    padding:10px;
+.portfolio-projects-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+}
+
+.github-repo {
+    display: block;
+    text-justify: center;
+    text-align: center;
+    width: 100%;
+    min-height: 50px;
+    display: grid;
+    place-items: center center;
+}
+
+.github-repo a {
+    text-decoration: none;
+    color: black;
+    font-variant: small-caps;
+    font-size: 2rem;
+    line-height: 25px;
+    ;
+    cursor: pointer;
+}
+
+.portfolio-projects-nav {
+    /* display:none; */
+    display: grid;
+    grid-template-columns: minmax(max-content, 50px) minmax(100px, max-content) minmax(max-content, 50px);
+    color:blue;
+
 }
 
 
@@ -91,14 +118,14 @@
 .portfolio-footer {
     grid-area: footer;
     background: #55a3fa;
-    min-height: 90px; 
-    display:grid;
+    min-height: 90px;
+    display: grid;
     grid-auto-flow: column;
     place-items: center center;
 }
 
-.portfolio-footer-copyright{
+.portfolio-footer-copyright {
     line-height: 30px;
-    color:white;
+    color: white;
     font-size: 20px;
 }
