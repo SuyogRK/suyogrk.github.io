@@ -18,85 +18,113 @@
             <div class="portfolio-header-text-area">
                 <h1>I'm Suyog Raj Kadel</h1>
                 <p>Software Developer</p>
-
             </div>
-            
         </div>
-
-
-
     </header>
-
     <main class="portfolio-main">
         <section id="portfolio-projects">
             <div class="portfolio-projects-title">
                 My Projects
             </div>
-            <div class="portfolio-projects-container">
-            
-                <div class="github-repo"><a href="https://github.com/suyogrk/aimeos-laravel">aimeos-laravel</a></div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/algo">algo</a></div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/algorithms_solutions">algorithms_solutions</a>
-                </div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/All-In-One">All-In-One</a></div>
-                <div class="github-repo"><a
-                        href="https://github.com/suyogrk/android-fundamentals-apps-v2">android-fundamentals-apps-v2</a>
-                </div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/awesome-courses">awesome-courses</a></div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/awesome-laravel">awesome-laravel</a></div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/awesome-vue">awesome-vue</a></div>
-                <div class="github-repo"><a href="https://github.com/suyogrk/bahmni-core">bahmni-core</a></div>
-                <div class="github-repo"><a
-                        href="https://github.com/suyogrk/Best-websites-a-programmer-should-visit">Best-websites-a-programmer-should-visit</a>
-                </div>
+            <div id="portfolio-projects-container">
             </div>
 
-            <div class="portfolio-projects-nav">
-                <div class="portfolio-projects-nav-item" id="previous">Back</div>
-                <div class="portfolio-project-nav-item portfolio-project-nav-links">
-
-                </div>
-                <div class="portfolio-projects-nav-item" id="next">Next</div>
-
-
+            <div id="portfolio-projects-nav" class="hidden">
+                <div class="portfolio-project-nav-item" id="project-nav-previous">Back</div>
+                <div class="portfolio-project-nav-item portfolio-project-nav-links"></div>
+                <div class="portfolio-project-nav-item" id="project-nav-next">Next</div>
             </div>
-
-           
         </section>
-
-
     </main>
 
     <footer class="portfolio-footer">
         <div class="portfolio-footer-copyright">
-            2020  &copy; Suyog Raj Kadel. All Rights Reserved
+            2020 &copy; Suyog Raj Kadel. All Rights Reserved
         </div>
-
-
     </footer>
 
     <script>
         let link = {};
-        let myProjects = document.getElementById("portfolio-projects")
+        let prevUrl='';
+        let nextUrl='';
+        let pageNum = 1;
+        let myProjects = document.getElementById("portfolio-projects-container");
+        let backElement = document.getElementById('project-nav-previous');
+        let nextElement = document.getElementById('project-nav-next');
+        let projectNav = document.getElementById('portfolio-projects-nav');
 
-        fetch("https://api.github.com/users/suyogrk/repos?per_page=10",{
-            sort:'pushed'
-        })
-                .then(response =>{
-                 link = response.headers.get('link');
-                 return response.json();
+        let url = "https://api.github.com/users/suyogrk/repos?per_page=10";
+        let url2 = "https://api.github.com/user/13267148/repos?per_page=10&page=2"
+
+        function changeUrl(e) {
+            myProjects.innerHTML='';
+            url = this.dataset.url;
+            console.log(url);
+            if(url != null) {
+                fetchUrl(url);
+            }
+                        
+        }
+
+
+        function extractUrl(urlString){
+           let newString=urlString.trim();
+            return newString.substring(1,newString.length-1).trim();
+        }
+
+        function getLinks(link){
+            let prev = null;           
+            let next = null;   
+
+            const links = link.split(',').forEach(item =>{
+
+                if (item.includes('prev')) {
+                    let url = item.split(';');
+                    prev = extractUrl(url[0]);
+                };
+
+                if(item.includes('next')){
+                   let url = item.split(';');
+                    next = extractUrl(url[0]);
                 }
-                )            
+            })
+
+            return {prev, next};
+        }
+
+        function fetchUrl(url){
+            fetch(url, {
+                sort: 'pushed'
+            })
+                .then(response => {
+                    link = response.headers.get('link');
+                    return response.json();
+                }
+                )
                 .then(data => {
-                    data.forEach(item=>{
+                    data.forEach(item => {
                         let mydiv = document.createElement('div');
                         mydiv.classList.add('github-repo');
-                        mydiv.innerHTML=`<a href="${item.svn_url}">${item.name}</a>`;  
+                        mydiv.innerHTML = `<a href="${item.svn_url}">${item.name}</a>`;
                         myProjects.appendChild(mydiv);
-                    }                      
+                    }
                     )
+
+                    projectNav.classList.remove('hidden');
+                    const links = getLinks(link);
+                    console.log(links);
+                    backElement.dataset.url = links.prev== null? url : links.prev;
+                    nextElement.dataset.url = links.next==null? null : links.next;
+                    backElement.addEventListener('click', changeUrl);
+                    nextElement.addEventListener('click', changeUrl);
                 })
                 .catch(error => console.error(error))
+
+        }
+
+
+
+       fetchUrl(url);
 
 
 
